@@ -7,7 +7,7 @@ import { Button } from './Form'
 export default function List({ todo, setTodo }) {
     const [editItemId, setEditItemId] = useState(null);
     const [newTodo, setNewTodo] = useState();
-
+    const [checkedList, setCheckedList] = useState([]);
   
     // 삭제
     const handleClick = (id) => {
@@ -41,24 +41,36 @@ export default function List({ todo, setTodo }) {
         setEditItemId(false);
     }
 
-    const handleCheck = () => {
-        console.log('출력 확인');
+    // 체크
+    const handleCheck = (data) => {
+        if(checkedList.includes(data.id)) {
+            let newCheckedList = checkedList.filter(list => list !== data.id)
+            setCheckedList(newCheckedList);
+            console.log(newCheckedList);
+        } else {
+            let newCheckedList = [...checkedList, data.id]
+            setCheckedList([...checkedList, data.id]);
+            console.log(newCheckedList);
+        }
     }
 
     return (
         <div>
             <ul>
                 {todo.map((data, index) => (
-                    <li style={{ 
-                        display: 'flex',
-                        marginBottom: '10px'
+                    <li 
+                        key={data.id}
+                        style={{ 
+                            display: 'flex',
+                            marginBottom: '10px'
                         }}>
 
                         {editItemId === data.id ?
                             <>
                                 <label>
                                     <input type="checkbox"/>
-                                    <input type="text" onChange={handleModifyChange} value={newTodo} />
+                                    <input type="text" value={newTodo} 
+                                    onChange={handleModifyChange} />
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
@@ -71,7 +83,7 @@ export default function List({ todo, setTodo }) {
 
                             <>
                                 <label>
-                                    <input type="checkbox" onChange={handleCheck}/>
+                                    <input type="checkbox" checked={checkedList.includes(data.id) ? true : false} onChange={() => handleCheck(data)}/>
                                     <span> {data.title} </span>
                                 </label>
                                 
