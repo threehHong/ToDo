@@ -6,6 +6,7 @@ const Input = styled.input`
   border: 0;
   border-bottom: 1px solid #aaa;
   padding-left: 10px;
+  margin-left: 40px;
 `
 
 export const Button = styled.button`
@@ -28,7 +29,7 @@ export default function Form({ handleSubmit, value, setValue }) {
 
       <Button> 추가 </Button>
 
-      <hr style={{ background: '#aaa' }} />
+      {/* <hr style={{ background: '#aaa' }} /> */}
     </form>
   )
 }
