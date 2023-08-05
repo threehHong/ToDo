@@ -41,6 +41,10 @@ export default function List({ todo, setTodo }) {
         setEditItemId(false);
     }
 
+    const handleCheck = () => {
+        console.log('출력 확인');
+    }
+
     return (
         <div>
             <ul>
@@ -67,7 +71,7 @@ export default function List({ todo, setTodo }) {
 
                             <>
                                 <label>
-                                    <input type="checkbox"  />
+                                    <input type="checkbox" onChange={handleCheck}/>
                                     <span> {data.title} </span>
                                 </label>
                                 
