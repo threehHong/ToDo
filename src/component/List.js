@@ -25,7 +25,7 @@ export default function List({ todo, setTodo }) {
         setNewTodo(e.target.value);
     }
 
-    const handleCancle = () => {
+    const handleCancel = () => {
         setEditItemId(false);
     }
 
@@ -48,9 +48,14 @@ export default function List({ todo, setTodo }) {
             setCheckedList(newCheckedList);
             console.log(newCheckedList);
         } else {
-            let newCheckedList = [...checkedList, data.id]
+            /* let newCheckedList = [...checkedList, data.id]
             setCheckedList([...checkedList, data.id]);
-            console.log(newCheckedList);
+            console.log(newCheckedList); */
+            
+            setCheckedList((prev) => {
+                console.log([...prev, data.id]);
+                return [...prev, data.id]
+            });
         }
     }
 
@@ -74,8 +79,8 @@ export default function List({ todo, setTodo }) {
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
-                                    <Button onClick={() => handleCancle(data.id, data.title)}>취소</Button>
-                                    <Button onClick={() => handleComplete(data.id)} >완료</Button>
+                                    <Button onClick={() => handleCancel(data.id, data.title)}>취소</Button>
+                                    <Button onClick={() => handleComplete(data.id)} >제출</Button>
                                 </div>
                             </>
 
