@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -78,17 +78,25 @@ export default function Signup() {
     }
   }
 
+  // 토큰이 있을 경우 todo 페이지로 이동
+  useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      navigate("/todo");
+      console.log('출력 확인')
+    }
+  }, []);
+
   return (
     <AuthForm>
       <Form onSubmit={handleSubmit}>
         <InputWrap>
-          <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton}/>
-          <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} />
-          <input type="password" name="passwordCheck" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} />
+          <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/>
+          <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
+          <input type="password" name="passwordCheck" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
         </InputWrap>
         
         <ButtonWrap> 
-          <Button $active={active}> 회원가입 </Button>
+          <Button $active={active} data-testid="signup-button"> 회원가입 </Button>
         </ButtonWrap>
       </Form>
     </AuthForm>

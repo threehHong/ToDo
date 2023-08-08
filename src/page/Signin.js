@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
 import AuthForm from '../component/AuthForm'
@@ -40,6 +40,8 @@ export default function Signin() {
 
     const [active, setActive] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { value, name } = e.target;
         setInput({
@@ -52,8 +54,6 @@ export default function Signin() {
     const ActiveButton = () => {
         setActive(input.email && input.password);
     }
-
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,13 +73,20 @@ export default function Signin() {
         }
     }
 
+    // 토큰이 있을 경우 todo 페이지로 이동
+    useEffect(() => {
+        if (localStorage.getItem("access_token")) {
+          navigate("/todo");
+          console.log('출력 확인')
+        }
+    }, []);
 
     return (
         <AuthForm>
             <Form onSubmit={handleSubmit}>
                 <InputWrap>
-                    <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton}/> 
-                    <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton}/>
+                    <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/> 
+                    <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
                     <div style={{width: '100%', textAlign: 'end'}}>
                         <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signup");}}>
                             회원가입 
@@ -88,7 +95,7 @@ export default function Signin() {
                 </InputWrap>
 
                 <ButtonWrap>
-                    <Button $active={active} /* disabled="true" */> 로그인 </Button>
+                    <Button $active={active} data-testid="signin-button" /* disabled="true" */> 로그인 </Button>
                 </ButtonWrap>
             </Form>
         </AuthForm>
