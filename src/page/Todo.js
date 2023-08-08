@@ -2,32 +2,36 @@ import { useEffect, useState } from 'react';
 import Form from '../component/Form';
 import List from '../component/List';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
 export default function Todo() {
   const [todo, setTodo] = useState([]);
   const [value, setValue] = useState("");
-  const accessToken = localStorage.getItem("access_token");
   
+  const accessToken = localStorage.getItem("access_token");
+  /* const navigate = useNavigate(); */
 
   const patchToDoList = async (e) => {
-    const responseGetTodos = await axios.get(`${SERVER_URL}/todos`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    console.log(responseGetTodos.data);
-
-    /* let newTodo = {
-      todo: value,
-    } */
+      try {
+        const responseGetTodos = await axios.get(`${SERVER_URL}/todos`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
     
-    setTodo(responseGetTodos.data)
-    setValue("todo");
+        console.log(responseGetTodos.data);
+        
+        setTodo(responseGetTodos.data)
+        setValue("");
+      } catch (error) {
+          console.log("error message:", error);
+      }
   }
+  
 
+  
   useEffect(() => {
     patchToDoList();
   }, []);
@@ -36,40 +40,25 @@ export default function Todo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(`${SERVER_URL}/todos`, {todo: value}, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      
-      console.log(response.data);
-
-      // let newTodo = {
-      //   todo: value,
-      // }
+    if(!value) {
+      alert('해야할 일을 입력하세요');
+    } else {
+      try {
+        const response = await axios.post(`${SERVER_URL}/todos`, {todo: value}, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        
+        console.log(response.data);
   
-      // setTodo([...todo, newTodo])
-      // setValue("");
-      
-
-      /* localStorage.setItem("access_token", response.data.access_token); */
-      
-      /* if (localStorage.getItem("access_token")) {
-          navigate("/todo");
-      } */
-
-      /* useEffect(() => {
-      }, []); */
-      
-      patchToDoList();
-
-    } catch (error) {
-        console.log("error message:", error);
+        patchToDoList();
+  
+      } catch (error) {
+          console.log("error message:", error);
+      }
     }
-
-      /* await axios.post(SERVER_URL, {todo}).catch(error => console.log(error)) */
-    }
+  }
 
   return (
     <div style={{ width: '1200px', margin: '50px auto' }}>
