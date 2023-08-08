@@ -60,12 +60,19 @@ export default function Signin() {
     
         console.log(input);
     
-        await axios.post(`${SERVER_URL}/auth/signin`, input).catch(error => console.log(error));
+        try {
+            const response = await axios.post(`${SERVER_URL}/auth/signin`, input);
     
-        if(active) {
-          navigate("/todo");
+            localStorage.setItem("access_token", response.data.access_token);
+            
+            if (localStorage.getItem("access_token")) {
+                navigate("/todo");
+            }
+        } catch (error) {
+            console.log("error message:", error);
         }
-      }
+    }
+
 
     return (
         <AuthForm>
