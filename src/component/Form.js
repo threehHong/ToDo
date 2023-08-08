@@ -25,11 +25,10 @@ export default function Form({ handleSubmit, value, setValue }) {
         placeholder='해야할 일을 입력하세요'
         onChange={handleChange}
         value={value}
+        data-testid="new-todo-input"
       />
 
-      <Button> 추가 </Button>
-
-      {/* <hr style={{ background: '#aaa' }} /> */}
+      <Button data-testid="new-todo-add-button"> 추가 </Button>
     </form>
   )
 }
