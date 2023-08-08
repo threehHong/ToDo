@@ -79,7 +79,7 @@ export default function List({ todo, setTodo }) {
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
-                                    <Button onClick={() => handleCancel(data.id, data.title)}>취소</Button>
+                                    <Button onClick={() => handleCancel(data.id, data.todo)}>취소</Button>
                                     <Button onClick={() => handleComplete(data.id)} >제출</Button>
                                 </div>
                             </>
@@ -89,11 +89,11 @@ export default function List({ todo, setTodo }) {
                             <>
                                 <label>
                                     <input type="checkbox" checked={checkedList.includes(data.id) ? true : false} onChange={() => handleCheck(data)}/>
-                                    <span> {data.title} </span>
+                                    <span> {data.todo} </span>
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
-                                    <Button data-testid="modify-button" onClick={() => handleModify(data.id, data.title)}>수정</Button>
+                                    <Button data-testid="modify-button" onClick={() => handleModify(data.id, data.todo)}>수정</Button>
                                     <Button data-testid="delete-button" onClick={() => handleClick(data.id)} >삭제</Button>
                                 </div>
                             </>
