@@ -15,15 +15,15 @@ export default function Todo() {
 
   const patchToDoList = async (e) => {
       try {
-        const responseGetTodos = await axios.get(`${SERVER_URL}/todos`, {
+        const getTodos = await axios.get(`${SERVER_URL}/todos`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
     
-        console.log(responseGetTodos.data);
+        console.log(getTodos.data);
         
-        setTodo(responseGetTodos.data)
+        setTodo(getTodos.data)
         setValue("");
       } catch (error) {
           console.log("error message:", error);
@@ -48,13 +48,13 @@ export default function Todo() {
       alert('해야할 일을 입력하세요');
     } else {
       try {
-        const response = await axios.post(`${SERVER_URL}/todos`, {todo: value}, {
+        const createTodo = await axios.post(`${SERVER_URL}/todos`, {todo: value}, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
         
-        console.log(response.data);
+        console.log(createTodo.data);
   
         patchToDoList();
   
