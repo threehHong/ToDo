@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Home from './page/Home';
+import Todo from './page/Todo';
 import Signup from './page/Signup';
+import Signin from './page/Signin';
 
 function App() {
   return (
@@ -8,7 +9,8 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<LoginForm />}> </Route> */}
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/Signin" element={<Signin />} />
+        <Route path="/todo" element={<Todo />} />
       </Routes>
     </BrowserRouter>
   )
