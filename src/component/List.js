@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Button } from './Form'
+import axios from 'axios';
 
 // import { styled } from 'styled-components'
 
+const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
+const accessToken = localStorage.getItem("access_token");
 
 export default function List({ todo, setTodo }) {
     const [editItemId, setEditItemId] = useState(null);
     const [newTodo, setNewTodo] = useState();
-    const [checkedList, setCheckedList] = useState([]);
   
     // 삭제
     const handleClick = (id) => {
@@ -29,40 +31,84 @@ export default function List({ todo, setTodo }) {
         setEditItemId(false);
     }
 
-    const handleComplete = () => {
-        const updateTodo = todo.map(data => {
-            if(data.id === editItemId) {
-                return { ...data, title: newTodo};
-            }
+    const handleComplete = async () => {
 
-            return data;
-        })
-        setTodo(updateTodo);
-        setEditItemId(false);
+        // updateTodo API - todo
+        try {
+            const updateTodo = await axios.put(`${SERVER_URL}/todos/${editItemId}`, 
+            { 
+                todo: newTodo,
+                isCompleted: true,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        
+            // console.log(updateTodo);
+            
+            // 렌더링
+            const updateTodoList = todo.map(data => {
+                if(data.id === editItemId) {
+                    return { ...data, todo: newTodo }
+                }
+
+                return data;
+            })
+            
+            setTodo(updateTodoList);
+            setEditItemId(false);
+
+        } catch (error) {
+            console.log("error message:", error);
+        }
     }
 
     // 체크
-    const handleCheck = (data) => {
-        if(checkedList.includes(data.id)) {
-            let newCheckedList = checkedList.filter(list => list !== data.id)
-            setCheckedList(newCheckedList);
-            console.log(newCheckedList);
-        } else {
-            /* let newCheckedList = [...checkedList, data.id]
-            setCheckedList([...checkedList, data.id]);
-            console.log(newCheckedList); */
-            
-            setCheckedList((prev) => {
-                console.log([...prev, data.id]);
-                return [...prev, data.id]
+    const handleCheck = async (data) => {
+
+        const updateTodoCheck = todo.map(list => {
+            if(list.id === data.id) {
+                return { ...list, isCompleted: !data.isCompleted }
+            }
+            return list
+        })
+        setTodo(updateTodoCheck);
+
+        // updateTodo API - check
+        try {
+            const updateTodoCheck = await axios.put(`${SERVER_URL}/todos/${data.id}`, 
+            { 
+                todo: data.todo,
+                isCompleted: !data.isCompleted,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
             });
+        
+            console.log(updateTodoCheck);
+            
+            // 렌더링
+            todo.map(list => {
+                if(list.id === data.id) {
+                    return { ...list, isCompleted: !data.isCompleted }
+                }
+                return list
+            })
+    
+
+        } catch (error) {
+            console.log("error message:", error);
         }
     }
 
     return (
         <div>
             <ul>
-                {todo.map((data, index) => (
+                {todo.map((data) => (
                     <li 
                         key={data.id}
                         style={{ 
@@ -87,13 +133,13 @@ export default function List({ todo, setTodo }) {
                             :
 
                             <>
-                                <label>
-                                    <input type="checkbox" checked={checkedList.includes(data.id) ? true : false} onChange={() => handleCheck(data)}/>
+                                <label> {/* checked={checkedList.includes(data.id) ? true : false} */}
+                                    <input type="checkbox" checked={data.isCompleted} onChange={() => handleCheck(data)}/>
                                     <span> {data.todo} </span>
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
-                                    <Button data-testid="modify-button" onClick={() => handleModify(data.id, data.todo)}>수정</Button>
+                                    <Button data-testid="modify-button" onClick={() => handleModify(data.id, data.todo, data.isCompleted)}>수정</Button>
                                     <Button data-testid="delete-button" onClick={() => handleClick(data.id)} >삭제</Button>
                                 </div>
                             </>
