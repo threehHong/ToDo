@@ -5,7 +5,7 @@ import axios from 'axios';
 
 /* const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop/'; */
 
-export default function Home() {
+export default function Todo() {
   const [todo, setTodo] = useState([]);
   const [value, setValue] = useState("");
   
