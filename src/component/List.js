@@ -10,6 +10,7 @@ const accessToken = localStorage.getItem("access_token");
 export default function List({ todo, setTodo }) {
     const [editItemId, setEditItemId] = useState(null);
     const [newTodo, setNewTodo] = useState();
+    const [isChecked, setIsChecked] = useState();
   
     // 삭제
     const handleClick = (id) => {
@@ -18,9 +19,10 @@ export default function List({ todo, setTodo }) {
     }
 
     // 수정
-    const handleModify = (id, data) => {
+    const handleModify = (id, data, check) => {
         setEditItemId(id);
         setNewTodo(data);
+        setIsChecked(check);
     }
 
     const handleModifyChange = (e) => {
@@ -38,7 +40,7 @@ export default function List({ todo, setTodo }) {
             const updateTodo = await axios.put(`${SERVER_URL}/todos/${editItemId}`, 
             { 
                 todo: newTodo,
-                isCompleted: true,
+                isCompleted: isChecked,
             },
             {
                 headers: {
@@ -67,6 +69,8 @@ export default function List({ todo, setTodo }) {
 
     // 체크
     const handleCheck = async (data) => {
+
+        setIsChecked(!data.isCompleted);
 
         const updateTodoCheck = todo.map(list => {
             if(list.id === data.id) {
@@ -119,14 +123,13 @@ export default function List({ todo, setTodo }) {
                         {editItemId === data.id ?
                             <>
                                 <label>
-                                    <input type="checkbox"/>
-                                    <input type="text" value={newTodo} 
-                                    onChange={handleModifyChange} />
+                                    <input type="checkbox" checked={data.isCompleted} onChange={() => handleCheck(data)}/>
+                                    <input type="text" value={newTodo} onChange={handleModifyChange} data-testid="modify-input"/>
                                 </label>
                                 
                                 <div style={{ marginLeft: '10px' }}>
-                                    <Button onClick={() => handleCancel(data.id, data.todo)}>취소</Button>
-                                    <Button onClick={() => handleComplete(data.id)} >제출</Button>
+                                    <Button onClick={() => handleCancel(data.id, data.todo)} data-testid="cancel-button">취소</Button>
+                                    <Button onClick={() => handleComplete(data.id)} data-testid="submit-button">제출</Button>
                                 </div>
                             </>
 
