@@ -2,17 +2,13 @@ import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import AuthForm from '../component/AuthForm';
+import InputWrap from '../component/InputWrap';
+import ButtonWrap from '../component/ButtonWrap';
 
-const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop/auth/signup';
+const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
-const Section =  styled.section`
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const SignupForm =  styled.form`
+const Form =  styled.form`
   border: 1px solid #aaa;
   width: 350px;
   height: 400px;
@@ -22,28 +18,6 @@ const SignupForm =  styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-`
-
-const InputWrap =  styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding-top: 30px;
-  width: 300px;
-
-  & > input {
-    border-radius: 5px;
-    padding-left: 5px;
-    width: 100%;
-    height: 40px;
-    border: 2px solid #aaa;
-    outline: none;
-  }
-`
-const ButtonWrap = styled.div`
-    transform: translateY(-20px);
-    transition: 1s;
 `
 
 // transient props - styled - components랑 관련된 개념
@@ -97,26 +71,28 @@ export default function Signup() {
 
     console.log(input);
 
-    await axios.post(SERVER_URL, input).catch(error => console.log(error));
+    await axios.post(`${SERVER_URL}/auth/signup`, input).catch(error => console.log(error));
 
-    /* if(active) {
-      navigate("/home");
-    } */
+    if(active) {
+      navigate("/signin");
+    }
   }
 
   return (
-    <Section>
-      <SignupForm onSubmit={handleSubmit}>
+    <AuthForm>
+      <Form onSubmit={handleSubmit}>
         <InputWrap>
           <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton}/>
           <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} />
           <input type="password" name="passwordCheck" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} />
         </InputWrap>
-
+        
         <ButtonWrap> 
           <Button $active={active}> 회원가입 </Button>
         </ButtonWrap>
-      </SignupForm>
-    </Section>
+      </Form>
+    </AuthForm>
+     
   )
 }
+
