@@ -11,7 +11,7 @@ export default function Todo() {
   const [value, setValue] = useState("");
   
   const accessToken = localStorage.getItem("access_token");
-  /* const navigate = useNavigate(); */
+  const navigate = useNavigate();
 
   const patchToDoList = async (e) => {
       try {
@@ -30,10 +30,14 @@ export default function Todo() {
       }
   }
   
-
-  
+  // 토큰이 없을 경우 signin 페이지로 이동.
+  // 그렇지 않을 경우 TodoList 출력.
   useEffect(() => {
-    patchToDoList();
+    if(!accessToken) {
+      navigate('/signin');
+    } else {
+      patchToDoList();
+    }
   }, []);
 
 
