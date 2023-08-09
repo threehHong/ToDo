@@ -13,9 +13,26 @@ export default function List({ todo, setTodo }) {
     const [isChecked, setIsChecked] = useState();
   
     // 삭제
-    const handleClick = (id) => {
-        let newTodoData = todo.filter(data => data.id !== id)
-        setTodo(newTodoData);
+    const handleClick = async (id) => {
+        
+        // deleteTodo API
+        try {
+            const deleteTodo = await axios.delete(`${SERVER_URL}/todos/${id}`, 
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        
+            console.log(deleteTodo);
+            
+            // 렌더링
+            let updateTodoList = todo.filter(data => data.id !== id)
+            setTodo(updateTodoList);
+
+        } catch (error) {
+            console.log("error message:", error);
+        }
     }
 
     // 수정
