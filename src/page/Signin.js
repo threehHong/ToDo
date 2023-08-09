@@ -94,8 +94,8 @@ export default function Signin() {
                     </div>
                 </InputWrap>
 
-                <ButtonWrap>
-                    <Button $active={active} data-testid="signin-button" /* disabled="true" */> 로그인 </Button>
+                <ButtonWrap> 
+                    <Button $active={active} disabled={!active} data-testid="signin-button"> 로그인 </Button>
                 </ButtonWrap>
             </Form>
         </AuthForm>

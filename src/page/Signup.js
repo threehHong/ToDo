@@ -68,10 +68,11 @@ export default function Signup() {
 
     console.log(input);
 
-    await axios.post(`${SERVER_URL}/auth/signup`, input).catch(error => console.log(error));
-
-    if(active) {
+    try {
+      await axios.post(`${SERVER_URL}/auth/signup`, input);
       navigate("/signin");
+    } catch (error) {
+        console.log("error message:", error);
     }
   }
 
@@ -92,7 +93,7 @@ export default function Signup() {
         </InputWrap>
         
         <ButtonWrap> 
-          <Button $active={active} data-testid="signup-button"> 회원가입 </Button>
+          <Button $active={active} disabled={!active} data-testid="signup-button"> 회원가입 </Button>
         </ButtonWrap>
       </Form>
     </AuthForm>
