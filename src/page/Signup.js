@@ -37,7 +37,6 @@ export default function Signup() {
   const [input, setInput] = useState({
     email: '',
     password: '',
-    passwordCheck: ''
   })
   const [active, setActive] = useState(false);
 
@@ -58,12 +57,10 @@ export default function Signup() {
   const ActiveButton = () => {
     const isIdValid = regexId.test(input.email);
     const isPasswordValid = regexPassword.test(input.password);
-    const isPasswordCheckValid = regexPassword.test(input.passwordCheck);
-    const isPasswordMatch = input.password === input.passwordCheck;
 
-    console.log(isIdValid, isPasswordValid, isPasswordCheckValid, isPasswordMatch);
+    console.log(isIdValid, isPasswordValid);
 
-    setActive(isIdValid && isPasswordValid && isPasswordCheckValid && isPasswordMatch);
+    setActive(isIdValid && isPasswordValid);
   }
 
   const handleSubmit = async (e) => {
@@ -92,7 +89,6 @@ export default function Signup() {
         <InputWrap>
           <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/>
           <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
-          <input type="password" name="passwordCheck" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
         </InputWrap>
         
         <ButtonWrap> 
