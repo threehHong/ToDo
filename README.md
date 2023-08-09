@@ -7,4 +7,4 @@ npm install & npm start
 ```
 
 ### 배포 주소
-https://unrivaled-crumble-a8e1d0.netlify.app/signin
+https://unrivaled-crumble-a8e1d0.netlify.app/
