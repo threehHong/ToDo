@@ -22,8 +22,8 @@ const Form =  styled.form`
 
 // transient props - styled - components랑 관련된 개념
 const Button = styled.button`
-  border: ${({ $active }) => ($active ? '1px solid #16A1EF' : '1px solid #A6D7FF')};
-  background: ${({ $active }) => ($active ? '#16A1EF' : '#A6D7FF')};
+  border: ${({ $active }) => ($active ? '1px solid #196B9A' : '1px solid #5F98B8')};
+  background: ${({ $active }) => ($active ? '#196B9A' : '#5F98B8')};
   color: #fff;
   border-radius: 5px;
   width: 200px;
@@ -90,6 +90,11 @@ export default function Signup() {
         <InputWrap>
           <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/>
           <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
+          <div style={{width: '100%', textAlign: 'end'}}>
+            <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signin");}}>
+              로그인 
+            </span>
+          </div>
         </InputWrap>
         
         <ButtonWrap> 
