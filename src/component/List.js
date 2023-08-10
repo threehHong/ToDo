@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from './Form'
 import axios from 'axios';
+import { todoApi } from '../api/todo';
 
 // import { styled } from 'styled-components'
 
@@ -13,26 +14,16 @@ export default function List({ todo, setTodo }) {
     const [isChecked, setIsChecked] = useState();
   
     // 삭제
-    const handleClick = async (id) => {
+    const handleClick = (id) => {
         
         // deleteTodo API
-        try {
-            const deleteTodo = await axios.delete(`${SERVER_URL}/todos/${id}`, 
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-        
-            console.log(deleteTodo);
-            
-            // 렌더링
+        todoApi.deleteTodo(id)
+        .then(() => {
             let updateTodoList = todo.filter(data => data.id !== id)
             setTodo(updateTodoList);
-
-        } catch (error) {
-            console.log("error message:", error);
-        }
+            
+        })
+        .catch(err => console.log(err));
     }
 
     // 수정

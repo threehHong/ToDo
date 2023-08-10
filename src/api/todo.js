@@ -17,7 +17,15 @@ export const createTodo = (todo) => {
     })
 }
 
+export const deleteTodo = (id) => {
+    return axiosInstance({
+        url: `todos/${id}`,
+        method: "DELETE",
+    })
+}
+
 export const todoApi = {
     getTodos,
-    createTodo
+    createTodo,
+    deleteTodo,
 }
