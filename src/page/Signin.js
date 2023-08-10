@@ -60,6 +60,7 @@ export default function Signin() {
     
         console.log(input);
     
+        // signIn API
         userApi.signIn(input)
             .then((response) => {
                 localStorage.setItem("access_token", response.data.access_token);
