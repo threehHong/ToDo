@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import AuthForm from '../component/AuthForm';
 import InputWrap from '../component/InputWrap';
 import ButtonWrap from '../component/ButtonWrap';
 
@@ -85,24 +84,21 @@ export default function Signup() {
   }, []);
 
   return (
-    <AuthForm>
-      <Form onSubmit={handleSubmit}>
-        <InputWrap>
-          <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/>
-          <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
-          <div style={{width: '100%', textAlign: 'end'}}>
-            <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signin");}}>
-              로그인 
-            </span>
-          </div>
-        </InputWrap>
-        
-        <ButtonWrap> 
-          <Button $active={active} disabled={!active} data-testid="signup-button"> 회원가입 </Button>
-        </ButtonWrap>
-      </Form>
-    </AuthForm>
-     
+    <Form onSubmit={handleSubmit}>
+      <InputWrap>
+        <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/>
+        <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
+        <div style={{width: '100%', textAlign: 'end'}}>
+          <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signin");}}>
+            로그인 
+          </span>
+        </div>
+      </InputWrap>
+      
+      <ButtonWrap> 
+        <Button $active={active} disabled={!active} data-testid="signup-button"> 회원가입 </Button>
+      </ButtonWrap>
+    </Form>
   )
 }
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
-import AuthForm from '../component/AuthForm'
 import InputWrap from '../component/InputWrap'
 import ButtonWrap from '../component/ButtonWrap'
 import axios from 'axios';
@@ -82,22 +81,20 @@ export default function Signin() {
     }, []);
 
     return (
-        <AuthForm>
-            <Form onSubmit={handleSubmit}>
-                <InputWrap>
-                    <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/> 
-                    <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
-                    <div style={{width: '100%', textAlign: 'end'}}>
-                        <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signup");}}>
-                            회원가입 
-                        </span>
-                    </div>
-                </InputWrap>
+        <Form onSubmit={handleSubmit}>
+            <InputWrap>
+                <input type="email" name="email" placeholder="email" onChange={handleChange} onKeyUp={ActiveButton} data-testid="email-input"/> 
+                <input type="password" name="password" placeholder="password" onChange={handleChange} onKeyUp={ActiveButton} data-testid="password-input"/>
+                <div style={{width: '100%', textAlign: 'end'}}>
+                    <span style={{cursor: 'pointer'}} onClick={() => {navigate("/signup");}}>
+                        회원가입 
+                    </span>
+                </div>
+            </InputWrap>
 
-                <ButtonWrap> 
-                    <Button $active={active} disabled={!active} data-testid="signin-button"> 로그인 </Button>
-                </ButtonWrap>
-            </Form>
-        </AuthForm>
+            <ButtonWrap> 
+                <Button $active={active} disabled={!active} data-testid="signin-button"> 로그인 </Button>
+            </ButtonWrap>
+        </Form>
     )
 }
