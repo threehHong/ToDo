@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import Form from '../component/Form';
 import List from '../component/List';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { todoApi } from '../api/todo';
-
-const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
 export default function Todo() {
   const [todo, setTodo] = useState([]);
