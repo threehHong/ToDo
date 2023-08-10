@@ -73,34 +73,18 @@ export default function List({ todo, setTodo }) {
             return list
         })
         setTodo(updateTodoCheck);
-
-        // updateTodo API - check
-        try {
-            const updateTodoCheck = await axios.put(`${SERVER_URL}/todos/${data.id}`, 
-            { 
-                todo: data.todo,
-                isCompleted: !data.isCompleted,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
         
-            console.log(updateTodoCheck);
-            
-            // 렌더링
+        // updateTodoCheck API
+        todoApi.updateTodoCheck(data.id, data.todo, data.isCompleted)
+        .then(() => {
             todo.map(list => {
                 if(list.id === data.id) {
                     return { ...list, isCompleted: !data.isCompleted }
                 }
                 return list
             })
-    
-
-        } catch (error) {
-            console.log("error message:", error);
-        }
+        })
+        .catch(err => console.log(err));
     }
 
     return (

@@ -35,9 +35,21 @@ export const updateTodo = (editItemId, newTodo, isChecked) => {
     })
 }
 
+export const updateTodoCheck = (checkedId, todo, isCompleted) => {
+    return axiosInstance({
+        url: `todos/${checkedId}`,
+        method: "PUT",
+        data: {
+            todo: todo,
+            isCompleted: !isCompleted
+        }
+    })
+}
+
 export const todoApi = {
     getTodos,
     createTodo,
     deleteTodo,
     updateTodo,
+    updateTodoCheck,
 }
