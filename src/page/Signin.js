@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import InputWrap from '../component/InputWrap'
 import ButtonWrap from '../component/ButtonWrap'
 import axios from 'axios';
+import { userApi } from '../api/user';
 
 const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
@@ -59,17 +60,14 @@ export default function Signin() {
     
         console.log(input);
     
-        try {
-            const response = await axios.post(`${SERVER_URL}/auth/signin`, input);
-    
-            localStorage.setItem("access_token", response.data.access_token);
-            
-            if (localStorage.getItem("access_token")) {
-                navigate("/todo");
-            }
-        } catch (error) {
-            console.log("error message:", error);
-        }
+        userApi.signIn(input)
+            .then((response) => {
+                localStorage.setItem("access_token", response.data.access_token);
+                if (localStorage.getItem("access_token")) {
+                    navigate("/todo");
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     // 토큰이 있을 경우 todo 페이지로 이동
