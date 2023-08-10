@@ -3,6 +3,7 @@ import Form from '../component/Form';
 import List from '../component/List';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getTodos } from '../api/todo';
 
 const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
@@ -28,6 +29,13 @@ export default function Todo() {
       } catch (error) {
           console.log("error message:", error);
       }
+
+      /* getTodos()
+        .then((res) => {
+          setTodo(res.data);
+          setValue("");
+        })
+        .catch(err => console.log(err)); */
   }
   
   // 토큰이 없을 경우 signin 페이지로 이동.
