@@ -3,10 +3,8 @@ import { styled } from 'styled-components'
 import {useNavigate} from 'react-router-dom';
 import InputWrap from '../component/InputWrap'
 import ButtonWrap from '../component/ButtonWrap'
-import axios from 'axios';
 import { userApi } from '../api/user';
 
-const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
 const Form =  styled.form`
   border: 1px solid #aaa;
