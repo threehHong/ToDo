@@ -41,24 +41,11 @@ export default function List({ todo, setTodo }) {
         setEditItemId(false);
     }
 
-    const handleComplete = async () => {
+    const handleComplete = () => {
 
-        // updateTodo API - todo
-        try {
-            const updateTodo = await axios.put(`${SERVER_URL}/todos/${editItemId}`, 
-            { 
-                todo: newTodo,
-                isCompleted: isChecked,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-        
-            // console.log(updateTodo);
-            
-            // 렌더링
+        // updateTodo API
+        todoApi.updateTodo(editItemId, newTodo, isChecked)
+        .then(() => {
             const updateTodoList = todo.map(data => {
                 if(data.id === editItemId) {
                     return { ...data, todo: newTodo }
@@ -69,10 +56,9 @@ export default function List({ todo, setTodo }) {
             
             setTodo(updateTodoList);
             setEditItemId(false);
-
-        } catch (error) {
-            console.log("error message:", error);
-        }
+            
+        })
+        .catch(err => console.log(err));
     }
 
     // 체크

@@ -24,8 +24,20 @@ export const deleteTodo = (id) => {
     })
 }
 
+export const updateTodo = (editItemId, newTodo, isChecked) => {
+    return axiosInstance({
+        url: `todos/${editItemId}`,
+        method: "PUT",
+        data: {
+            todo: newTodo,
+            isCompleted: isChecked
+        }
+    })
+}
+
 export const todoApi = {
     getTodos,
     createTodo,
     deleteTodo,
+    updateTodo,
 }
