@@ -3,7 +3,7 @@ import Form from '../component/Form';
 import List from '../component/List';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getTodos } from '../api/todo';
+import { todoApi } from '../api/todo';
 
 const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
@@ -15,27 +15,13 @@ export default function Todo() {
   const navigate = useNavigate();
 
   const patchToDoList = async (e) => {
-      try {
-        const getTodos = await axios.get(`${SERVER_URL}/todos`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-    
-        console.log(getTodos.data);
-        
-        setTodo(getTodos.data)
-        setValue("");
-      } catch (error) {
-          console.log("error message:", error);
-      }
-
-      /* getTodos()
+      // getTodos API
+      todoApi.getTodos()
         .then((res) => {
           setTodo(res.data);
           setValue("");
         })
-        .catch(err => console.log(err)); */
+        .catch(err => console.log(err));
   }
   
   // 토큰이 없을 경우 signin 페이지로 이동.
@@ -55,20 +41,14 @@ export default function Todo() {
     if(!value) {
       alert('해야할 일을 입력하세요');
     } else {
-      try {
-        const createTodo = await axios.post(`${SERVER_URL}/todos`, {todo: value}, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        
-        console.log(createTodo.data);
-  
+      // createTodo API
+      todoApi.createTodo(value)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch(err => console.log(err));
+
         patchToDoList();
-  
-      } catch (error) {
-          console.log("error message:", error);
-      }
     }
   }
 

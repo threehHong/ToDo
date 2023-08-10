@@ -4,8 +4,20 @@ export const getTodos = () => {
     return axiosInstance({
         url: "todos",
         method: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        }
     })
+}
+
+export const createTodo = (todo) => {
+    return axiosInstance({
+        url: "todos",
+        method: "POST",
+        data: { 
+            todo 
+        },
+    })
+}
+
+export const todoApi = {
+    getTodos,
+    createTodo
 }
