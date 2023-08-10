@@ -1,51 +1,18 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import { styled } from 'styled-components'
-import { Section, } from '../component/AuthForm'
-import { useNavigate } from 'react-router-dom';
 
-const Sign = styled.div`
-    display: flex;
-    gap: 30px;
-
-    & > span {
-        border-radius: 10px;
-        width: 100px;
-        line-height: 30px;
-        text-align: center;
-        color: #fff;
-        cursor: pointer;
-    }
-`
-const SignIn = styled.span`
-    border: 1px solid #16A1EF;
-    background: #16A1EF;
-`
-
-const SignUp = styled.span`
-    border: 1px solid #196B9A;
-    background: #196B9A;
-
+const Section =  styled.section`
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export default function Home() {
-  const navigate = useNavigate();
-
-  const handleClick = (page) => {
-    page === 'signin'? navigate('/signin') : navigate('/signup');
-  }
-
-
   return (
     <Section>
-        <Sign> 
-            <SignIn onClick={() => handleClick('signin')}>
-                로그인
-            </SignIn>
-
-            <SignUp onClick={() => handleClick('signup')}>
-                회원가입
-            </SignUp>
-        </Sign>
+        <Outlet />
     </Section>
   )
 }
