@@ -50,7 +50,7 @@ export default function Todo() {
   }
 
   return (
-    <div /* style={{ width: '1000px', margin: '50px auto' }} */>
+    <div style={{ position: 'absolute', top: '40px' }}>
       <Form handleSubmit={handleSubmit} value={value} setValue={setValue} />
       <List todo={todo} setTodo={setTodo} />
     </div>
