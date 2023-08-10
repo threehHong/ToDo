@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import InputWrap from '../component/InputWrap';
 import ButtonWrap from '../component/ButtonWrap';
+import { userApi } from '../api/user';
 
 const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
 
@@ -67,12 +68,12 @@ export default function Signup() {
 
     console.log(input);
 
-    try {
-      await axios.post(`${SERVER_URL}/auth/signup`, input);
+    // signUp API
+    userApi.signUp(input)
+    .then(() => {
       navigate("/signin");
-    } catch (error) {
-        console.log("error message:", error);
-    }
+    })
+    .catch(err => console.log(err))
   }
 
   // 토큰이 있을 경우 todo 페이지로 이동

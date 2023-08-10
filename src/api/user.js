@@ -8,6 +8,15 @@ const signIn = (data) => {
     })
 }
 
+const signUp = (data) => {
+    return axiosInstance({
+        url: "/auth/signup",
+        method: "POST",
+        data,
+    })
+}
+
 export const userApi = {
     signIn,
+    signUp
 }
