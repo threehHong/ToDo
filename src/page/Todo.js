@@ -12,6 +12,7 @@ export default function Todo() {
   const navigate = useNavigate();
 
   const patchToDoList = (e) => {
+      console.log("출력");
       // getTodos API
       todoApi.getTodos()
         .then((res) => {
@@ -41,11 +42,10 @@ export default function Todo() {
       // createTodo API
       todoApi.createTodo(value)
         .then((res) => {
-          console.log(res)
+          console.log(res);
+          patchToDoList();
         })
         .catch(err => console.log(err));
-
-        patchToDoList();
     }
   }
 
