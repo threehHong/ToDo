@@ -14,7 +14,7 @@ export default function Todo() {
   const accessToken = localStorage.getItem("access_token");
   const navigate = useNavigate();
 
-  const patchToDoList = async (e) => {
+  const patchToDoList = (e) => {
       // getTodos API
       todoApi.getTodos()
         .then((res) => {
