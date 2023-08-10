@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from './Form'
-import axios from 'axios';
 import { todoApi } from '../api/todo';
-
-// import { styled } from 'styled-components'
-
-const SERVER_URL = 'https://www.pre-onboarding-selection-task.shop';
-const accessToken = localStorage.getItem("access_token");
 
 export default function List({ todo, setTodo }) {
     const [editItemId, setEditItemId] = useState(null);
