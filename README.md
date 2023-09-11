@@ -1,8 +1,8 @@
 # ToDo
 
-### LOGO
+### 로고
 
-<img src="public/logo192.svg" style="width: 50px; border-radius: 10px" >
+<img src="public/logo192.svg" style="width: 50px;" >
 
 <br>
 
@@ -33,8 +33,7 @@
 
 ### 기술 스택
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"> 
-<img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
 <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <br>
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
