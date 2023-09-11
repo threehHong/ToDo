@@ -1,10 +1,10 @@
 # ToDo
 
-### 로고
+<!-- ### 로고
 
 <img src="public/logo192.svg" style="width: 50px;" >
 
-<br>
+<br> -->
 
 ### 제작 기간
 
